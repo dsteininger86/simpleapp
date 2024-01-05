@@ -102,7 +102,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if !founded {
+	if !found {
 		http.Error(w, "not found", http.StatusNotFound)
 		return
 	}

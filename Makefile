@@ -10,7 +10,7 @@ LDFLAGS := '-extldflags "-static" \
 	-X github.com/dsteininger86/go-appinfo.version=$(VERSION) \
 	-X github.com/dsteininger86/go-appinfo.buildDate=$(BUILD_DATE) \
 	-X github.com/dsteininger86/go-appinfo.gitCommit=$(GITHUB_SHA) \
-	-X github.com/dsteininger86/go-appinfo.name=kw-token-cleanup \
+	-X github.com/dsteininger86/go-appinfo.name=simpleapp \
 	'
 
 .PHONY: compile
