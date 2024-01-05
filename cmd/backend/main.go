@@ -3,11 +3,9 @@ package main
 import (
 	"context"
 	"flag"
-	"fmt"
 	"log"
 	"net"
 	"os"
-	"strings"
 
 	pb "github.com/dsteininger86/simpleapp/envlookup"
 	"google.golang.org/grpc"
@@ -17,20 +15,8 @@ type EnvLookupServer struct {
 	pb.UnimplementedEnvLookupServer
 }
 
-func lookupEnv(envKey string) (string, bool) {
-
-	envVars := os.Environ()
-
-	for _, envVar := range envVars {
-		if strings.HasPrefix(fmt.Sprintf("%s=", envVar), envKey) {
-			return strings.Split(envVar, "=")[1], true
-		}
-	}
-	return "", false
-}
-
 func (e *EnvLookupServer) GetEnv(ctx context.Context, r *pb.GetEnvRequest) (*pb.GetEnvResponse, error) {
-	envValue, found := lookupEnv(r.Name)
+	envValue, found := os.LookupEnv(r.Name)
 	return &pb.GetEnvResponse{
 		Found: found,
 		Value: envValue,
