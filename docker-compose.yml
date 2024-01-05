@@ -1,0 +1,21 @@
+version: '3'
+services:
+  frontend:
+    image: ${IMAGE_FRONTEND}
+    build:
+      context: ./
+      dockerfile: ./docker/frontend/Dockerfile
+    command: /app/frontend -backend-addr backend:50051
+    ports:
+      - "8080:8080"
+    links:
+      - backend
+  backend:
+    image: ${IMAGE_BACKEND}
+    build:
+      context: ./
+      dockerfile: ./docker/backend/Dockerfile
+    environment:
+      - MESSAGE=Hello from backend
+    ports:
+      - "50051"

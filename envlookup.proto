@@ -1,0 +1,15 @@
+syntax = "proto3";
+option go_package = "github.com/dsteininger86/simpleapp/envlookup";
+
+message GetEnvRequest {
+  string name = 1;
+}
+
+message GetEnvResponse {
+  string value = 1;
+  bool found = 2;
+}
+
+service EnvLookup {
+  rpc GetEnv(GetEnvRequest) returns (GetEnvResponse) {}
+}
