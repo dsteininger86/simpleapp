@@ -54,9 +54,9 @@ func main() {
 	}
 }
 
-func envLookUp(env *EnvironmentVar) (bool, error) {
+func envLookUp(ctx context.Context, env *EnvironmentVar) (bool, error) {
 
-	ctx, cancel := context.WithTimeout(context.Background(), *gRPCTimeout)
+	ctx, cancel := context.WithTimeout(ctx, *gRPCTimeout)
 	defer cancel()
 
 	res, err := gRPCClient.GetEnv(ctx, &pb.GetEnvRequest{
@@ -95,7 +95,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		env.Key = r.URL.Query().Get("env")
 	}
 
-	founded, err := envLookUp(env)
+	found, err := envLookUp(r.Context(), env)
 	if err != nil {
 		log.Printf("envLookUp error: %v", err)
 		http.Error(w, "backend error", http.StatusInternalServerError)
