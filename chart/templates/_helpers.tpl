@@ -31,11 +31,11 @@ Create chart name and version as used by the chart label.
 {{- end }}
 
 {{/*
-Common labels
+Common labels for backend
 */}}
-{{- define "simple-app.labels" -}}
+{{- define "simple-app.backend.labels" -}}
 helm.sh/chart: {{ include "simple-app.chart" . }}
-{{ include "simple-app.selectorLabels" . }}
+{{ include "simple-app.backend.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -43,11 +43,33 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
-Selector labels
+Selector labels for backend
 */}}
-{{- define "simple-app.selectorLabels" -}}
+{{- define "simple-app.backend.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "simple-app.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/component: backend
+{{- end }}
+
+{{/*
+Common labels for frontend
+*/}}
+{{- define "simple-app.frontend.labels" -}}
+helm.sh/chart: {{ include "simple-app.chart" . }}
+{{ include "simple-app.frontend.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Selector labels for frontend
+*/}}
+{{- define "simple-app.frontend.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "simple-app.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/component: frontend
 {{- end }}
 
 {{/*
