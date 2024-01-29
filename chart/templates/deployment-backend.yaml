@@ -3,12 +3,12 @@ kind: Deployment
 metadata:
   name: {{ include "simple-app.fullname" . }}-backend
   labels:
-    {{- include "simple-app.labels" . | nindent 4 }}
+    {{- include "simple-app.backend.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.backend.replicaCount }}
   selector:
     matchLabels:
-      {{- include "simple-app.selectorLabels" . | nindent 6 }}
+      {{- include "simple-app.backend.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.backend.podAnnotations }}
@@ -16,7 +16,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "simple-app.labels" . | nindent 8 }}
+        {{- include "simple-app.backend.labels" . | nindent 8 }}
         {{- with .Values.backend.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
