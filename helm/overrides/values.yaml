@@ -1,0 +1,11 @@
+frontend:
+  image:
+    repository: harbor.infra.cluster.ionos.com/dsteininger/simpleapp/frontend
+    tag: dev
+
+backend:
+  image:
+    repository: harbor.infra.cluster.ionos.com/dsteininger/simpleapp/backend
+    tag: dev
+  config:
+    message: "Hello from backend"
